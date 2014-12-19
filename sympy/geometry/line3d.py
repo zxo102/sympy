@@ -711,11 +711,9 @@ class LinearEntity3D(GeometryEntity):
                     return []
                 if len(d) == 1: 
                     return []   
-                if len(c) == 1 and len(d) == 1:
-                    return []
                 if c is {}:
                     e = a.subs(t1, d[t1])
-                else:   #?
+                else:   
                     e = a.subs(t1, c[t1])
                 if  e in self and e in o:
                     return [e]
