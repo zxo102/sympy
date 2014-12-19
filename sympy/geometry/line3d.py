@@ -705,12 +705,18 @@ class LinearEntity3D(GeometryEntity):
                 t = t1, t2 = Dummy(), Dummy()
                 a = self.arbitrary_point(t1)
                 b = o.arbitrary_point(t2)
-                dx = a.x - b.x
-                c = solve([dx, a.y - b.y], t)
-                d = solve([dx, a.z - b.z], t)
+                c = solve([a.x - b.x, a.y - b.y], [t1,t2])
+                d = solve([a.x - b.x, a.z - b.z], [t1,t2])
+                if len(c) == 1:
+                    return []
+                if len(d) == 1: 
+                    return []   
                 if len(c) == 1 and len(d) == 1:
                     return []
-                e = a.subs(t1, c[t1])
+                if c is {}:
+                    e = a.subs(t1, d[t1])
+                else:   #?
+                    e = a.subs(t1, c[t1])
                 if  e in self and e in o:
                     return [e]
                 else:
